@@ -1,0 +1,15 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.OneLinerApp" parent="Theme.MaterialComponents.DayNight">
+        <!-- Customize your light theme here. -->
+         <item name="colorPrimary">@color/LightSteelBlue</item>
+
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:textColorSecondary">@color/black</item>
+        <item name="android:buttonStyle">@style/ButtonColor</item>
+    </style>
+    <style name="ButtonColor" parent="ThemeOverlay.Material3.Button">
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="Theme.OneLinerApp" parent="Base.Theme.OneLinerApp" />
+</resources>
