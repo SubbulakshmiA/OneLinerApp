@@ -44,5 +44,7 @@ dependencies {
 
 
     implementation ("androidx.room:room-runtime:2.6.1")
+    testImplementation("junit:junit:4.12")
+    androidTestImplementation("junit:junit:4.12")
     annotationProcessor ("androidx.room:room-compiler:2.6.1")
 }

@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements NetworkingManager
         heartIcon = findViewById(R.id.heart_icon);
         shareIcon = findViewById(R.id.share_icon);
 
-        fragment(jokes.getJoke());
+//        fragment(jokes.getJoke());
 //        dataBaseManager.deleteJokeTableInBGThread();
         shareIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,7 +113,8 @@ public class MainActivity extends AppCompatActivity implements NetworkingManager
         Log.d("networkingFinishWithJsonString","networkingFinishWithJsonStrin "+json);
         if(isNetworkSuccess){
             ((MyApp)getApplication()).jokes = jsonManager.jsonOfJokes(json);
-            fragment(jokes.joke);
+            jokes = ((MyApp)getApplication()).jokes;
+       //     fragment(jokes.getJoke());
         }else{
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
@@ -133,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements NetworkingManager
      isNetworkSuccess = isSuccess;
     }
     void fragment(String jokeText) {
+        Log.d("jokeText","jokeText "+jokeText);
         JokeFragment jokeFrag = (JokeFragment) getSupportFragmentManager().findFragmentById(R.id.frame_layout);
         JokeFragment jokeFragment =JokeFragment.newInstance(jokeText,"text" );
 

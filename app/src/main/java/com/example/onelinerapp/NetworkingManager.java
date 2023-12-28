@@ -24,8 +24,8 @@ public class NetworkingManager {
 //    String apiKey = "53d0272ebf3843e8983269225a45f0b4";//not working apikey
 //      String apiKey = "b9f7d4fde18a4b0aa5dadd8b47339eec";//working apikey
 //    String apiKey = "dae424ceafef4b01a82a2841118dc47d";// working apikey
-    String apiKey = "88cafb2c1323416b90ddf3ef75f5ac23";// working
-//    String apiKey = "d40624f7007449d3a09ca4111663e824";//working
+//    String apiKey = "88cafb2c1323416b90ddf3ef75f5ac23";// working
+    String apiKey = "d40624f7007449d3a09ca4111663e824";//working
 
     String resMessage = "";
     interface NetworkingInterfaceListener{
