@@ -5,6 +5,7 @@ import androidx.core.content.ContextCompat;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -107,5 +108,20 @@ public class PostJokeActivity extends AppCompatActivity implements NetworkingMan
     @Override
     public void networkingFinishWithSuccess(boolean isSuccess) {
         isNetworkSuccess = isSuccess;
+    }
+
+    @Override
+    public void networkingFinishWithBitMapImage(Bitmap d) {
+
+    }
+
+    @Override
+    public void networkingFinishImageWithSuccess(boolean b) {
+
+    }
+
+    @Override
+    public void networkingFinishImageWithJsonString(String jsonResponse) {
+
     }
 }

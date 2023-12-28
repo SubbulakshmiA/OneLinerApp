@@ -25,6 +25,23 @@ public class JsonManager {
         return jokes;
     }
 
+    String jsonOfImageOfJokes(String json){
+        Urls urls = new Urls();
+        try{
+
+            JSONObject jsonObject = new JSONObject(json);
+            JSONArray imgArray = jsonObject.getJSONArray("results");
+            imgArray.getJSONObject(0).getString("urls");
+            JSONObject jsonObjectUrl = (imgArray.getJSONObject(0).getJSONObject("urls"));
+            urls.setRegular(jsonObjectUrl.getString("regular"));
+            Log.d("resInJsonManager",urls.getRegular());
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        return urls.getRegular();
+    }
+
     ArrayList<Jokes> jsonToListOfJokes(String json){
         try{
 //            Jokes jokes = new Jokes();

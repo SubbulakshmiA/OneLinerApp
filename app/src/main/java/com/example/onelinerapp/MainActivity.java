@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -22,6 +23,7 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements NetworkingManager.NetworkingInterfaceListener {
 
@@ -30,9 +32,12 @@ public class MainActivity extends AppCompatActivity implements NetworkingManager
     JsonManager jsonManager;
     Jokes jokes;
     Button next;
-    ImageView heartIcon,shareIcon;
+    ImageView heartIcon,shareIcon,img;
     ArrayList<Jokes> list;
     boolean isNetworkSuccess = false;
+    boolean isNetworkImageSuccess = false;
+
+    String q;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements NetworkingManager
         next = findViewById(R.id.next);
         heartIcon = findViewById(R.id.heart_icon);
         shareIcon = findViewById(R.id.share_icon);
+        img = findViewById(R.id.img);
 
 //        fragment(jokes.getJoke());
 //        dataBaseManager.deleteJokeTableInBGThread();
@@ -114,7 +120,14 @@ public class MainActivity extends AppCompatActivity implements NetworkingManager
         if(isNetworkSuccess){
             ((MyApp)getApplication()).jokes = jsonManager.jsonOfJokes(json);
             jokes = ((MyApp)getApplication()).jokes;
-       //     fragment(jokes.getJoke());
+                        String imageString = jokes.getJoke();
+//            String imageString = "There is a husband and a wife. The husband dies, and during the funeral, the wife starts to laugh. Everybody starts to ask her why, and she says,This is the first time that I know where my husband is going";
+            String[] strArr = imageString.split(" ");
+            Random random = new Random();
+            int ranGen = random.nextInt(strArr.length -1);
+            q = strArr[ranGen];
+            networkingManager.getRandomImageForJoke(q);
+            fragment(jokes.getJoke());
         }else{
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
@@ -133,6 +146,30 @@ public class MainActivity extends AppCompatActivity implements NetworkingManager
     public void networkingFinishWithSuccess(boolean isSuccess) {
      isNetworkSuccess = isSuccess;
     }
+
+    @Override
+    public void networkingFinishWithBitMapImage(Bitmap d) {
+        if(isNetworkImageSuccess)
+        img.setImageBitmap(d);
+    }
+
+    @Override
+    public void networkingFinishImageWithSuccess(boolean isSuccess) {
+        isNetworkImageSuccess = isSuccess;
+    }
+
+    @Override
+    public void networkingFinishImageWithJsonString(String jsonResponse) {
+        if(isNetworkSuccess){
+            Urls urls = new Urls();
+//            jsonManager.jsonOfJokes(json);
+            urls.setRegular(jsonManager.jsonOfImageOfJokes(jsonResponse));
+            Log.d("imageReg",urls.getRegular()+"");
+            networkingManager.downloadImage(urls.getRegular());
+
+        }
+    }
+
     void fragment(String jokeText) {
         Log.d("jokeText","jokeText "+jokeText);
         JokeFragment jokeFrag = (JokeFragment) getSupportFragmentManager().findFragmentById(R.id.frame_layout);
