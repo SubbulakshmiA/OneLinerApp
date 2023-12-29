@@ -26,7 +26,7 @@ public class NetworkingManager {
 //    String apiKey = "53d0272ebf3843e8983269225a45f0b4";//not working apikey
 //      String apiKey = "b9f7d4fde18a4b0aa5dadd8b47339eec";//working apikey
 //    String apiKey = "88cafb2c1323416b90ddf3ef75f5ac23";// working
-    String apiKey = "d4eaf87acffc49228513eb884b7b0908";// working
+    String apiKey = "a4145f90c44b48ef904f11f5ac3d9a73";// working
 
     String resMessage = "";
 

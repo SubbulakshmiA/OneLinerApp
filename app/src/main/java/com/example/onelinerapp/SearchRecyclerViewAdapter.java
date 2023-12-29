@@ -30,11 +30,11 @@ public class SearchRecyclerViewAdapter extends  RecyclerView.Adapter<SearchRecyc
     JsonManager jsonManager;
 
 
-//    public SearchRecyclerViewAdapter(Context context, ArrayList<Jokes> list, ArrayList<Bitmap> bitmapList ) {
-public SearchRecyclerViewAdapter(Context context,  ArrayList<Bitmap> bitmapList ) {
+    public SearchRecyclerViewAdapter(Context context, ArrayList<Jokes> list, ArrayList<Bitmap> bitmapList ) {
+//public SearchRecyclerViewAdapter(Context context,  ArrayList<Bitmap> bitmapList ) {
 
         this.context = context;
-//        this.list = list;
+        this.list = list;
         this.bitmapList = bitmapList;
     }
     class FavoriteViewHolder extends RecyclerView.ViewHolder{

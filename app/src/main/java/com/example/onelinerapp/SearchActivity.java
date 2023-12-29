@@ -48,8 +48,8 @@ public class SearchActivity extends AppCompatActivity implements NetworkingManag
 
         networkingManager.listener = this;
 
-//        adapter = new SearchRecyclerViewAdapter(this,list,bitmapList);
-        adapter = new SearchRecyclerViewAdapter(this,bitmapList);
+        adapter = new SearchRecyclerViewAdapter(this,list,bitmapList);
+//        adapter = new SearchRecyclerViewAdapter(this,bitmapList);
 
         adapter.listener = this;
         searchRecyclerView.setLayoutManager(new LinearLayoutManager(this));
