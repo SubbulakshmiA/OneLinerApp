@@ -41,7 +41,27 @@ public class JsonManager {
 
         return urls.getRegular();
     }
+    ArrayList<String> jsonListOfImageOfJokes(String json){
+        ArrayList<String> urlList = new ArrayList<>();
+        Urls urls = new Urls();
+        JSONObject jsonObjectUrl;
+        try{
 
+            JSONObject jsonObject = new JSONObject(json);
+            JSONArray imgArray = jsonObject.getJSONArray("results");
+            for(int i=0; i<imgArray.length();i++){
+                imgArray.getJSONObject(i).getString("urls");
+                jsonObjectUrl = (imgArray.getJSONObject(i).getJSONObject("urls"));
+                urlList.add(jsonObjectUrl.getString("regular"));
+            }
+//            urls.setRegular(jsonObjectUrl.getString("regular"));
+//            Log.d("resInJsonManager",urls.getRegular());
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        return urlList;
+    }
     ArrayList<Jokes> jsonToListOfJokes(String json){
         try{
 //            Jokes jokes = new Jokes();

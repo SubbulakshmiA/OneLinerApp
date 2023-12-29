@@ -149,8 +149,9 @@ public class MainActivity extends AppCompatActivity implements NetworkingManager
 
     @Override
     public void networkingFinishWithBitMapImage(Bitmap d) {
-        if(isNetworkImageSuccess)
-        img.setImageBitmap(d);
+        if(isNetworkImageSuccess){
+            img.setImageBitmap(d);
+        }
     }
 
     @Override
@@ -168,6 +169,11 @@ public class MainActivity extends AppCompatActivity implements NetworkingManager
             networkingManager.downloadImage(urls.getRegular());
 
         }
+    }
+
+    @Override
+    public void networkingFinishWithBitMapImageList(ArrayList<Bitmap> bitmapList) {
+
     }
 
     void fragment(String jokeText) {

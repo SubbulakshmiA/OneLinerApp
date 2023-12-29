@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class PostJokeActivity extends AppCompatActivity implements NetworkingManager.NetworkingInterfaceListener {
 
     EditText postEditText;
@@ -122,6 +124,11 @@ public class PostJokeActivity extends AppCompatActivity implements NetworkingMan
 
     @Override
     public void networkingFinishImageWithJsonString(String jsonResponse) {
+
+    }
+
+    @Override
+    public void networkingFinishWithBitMapImageList(ArrayList<Bitmap> bitmapList) {
 
     }
 }

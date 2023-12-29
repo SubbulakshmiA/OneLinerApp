@@ -18,15 +18,15 @@ import java.net.ProtocolException;
 import java.net.URI;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 
 public class NetworkingManager {
 
     //    String apiKey = "f65d2999b20748f581e6ce70be2a1244";// not working
 //    String apiKey = "53d0272ebf3843e8983269225a45f0b4";//not working apikey
 //      String apiKey = "b9f7d4fde18a4b0aa5dadd8b47339eec";//working apikey
-//    String apiKey = "dae424ceafef4b01a82a2841118dc47d";// working apikey
-    String apiKey = "88cafb2c1323416b90ddf3ef75f5ac23";// working
-//    String apiKey = "d40624f7007449d3a09ca4111663e824";//working
+//    String apiKey = "88cafb2c1323416b90ddf3ef75f5ac23";// working
+    String apiKey = "d4eaf87acffc49228513eb884b7b0908";// working
 
     String resMessage = "";
 
@@ -40,6 +40,8 @@ public class NetworkingManager {
         void networkingFinishImageWithSuccess(boolean b);
 
         void networkingFinishImageWithJsonString(String jsonResponse);
+
+        void networkingFinishWithBitMapImageList(ArrayList<Bitmap> bitmapList);
     }
 
     NetworkingInterfaceListener listener;
@@ -211,6 +213,36 @@ void getRandomImageForJoke(String q){
                         public void run() {
                             listener.networkingFinishImageWithSuccess(true);
                             listener.networkingFinishWithBitMapImage(d);
+                        }
+                    });
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+    }
+    void downloadImageList(ArrayList<String> urlList){
+        ArrayList<Bitmap> bitmapList = new ArrayList<>();
+//        Bitmap d;
+        MyApp.executorService.execute(new Runnable() {
+//            String iconurl = icon;
+            @Override
+            public void run() {
+                InputStream is = null;
+                try {
+                    for(int i = 0; i<urlList.size();i++){
+                        is = (InputStream) new URL(urlList.get(i)).getContent();
+                        bitmapList.add(BitmapFactory.decodeStream(is));
+                    }
+
+                    MyApp.mainhandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            listener.networkingFinishImageWithSuccess(true);
+                            listener.networkingFinishWithBitMapImageList(bitmapList);
                         }
                     });
                     is.close();

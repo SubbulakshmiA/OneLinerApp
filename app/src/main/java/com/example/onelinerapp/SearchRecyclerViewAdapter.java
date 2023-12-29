@@ -1,6 +1,7 @@
 package com.example.onelinerapp;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,10 +24,18 @@ public class SearchRecyclerViewAdapter extends  RecyclerView.Adapter<SearchRecyc
 
     Context context;
     ArrayList<Jokes> list;
+    ArrayList<Bitmap> bitmapList ;
     FavListClickListener listener;
-    public SearchRecyclerViewAdapter(Context context, ArrayList<Jokes> list) {
+    NetworkingManager networkingManager;
+    JsonManager jsonManager;
+
+
+//    public SearchRecyclerViewAdapter(Context context, ArrayList<Jokes> list, ArrayList<Bitmap> bitmapList ) {
+public SearchRecyclerViewAdapter(Context context,  ArrayList<Bitmap> bitmapList ) {
+
         this.context = context;
-        this.list = list;
+//        this.list = list;
+        this.bitmapList = bitmapList;
     }
     class FavoriteViewHolder extends RecyclerView.ViewHolder{
         public FavoriteViewHolder(@NonNull View itemView) {
@@ -46,8 +55,10 @@ public class SearchRecyclerViewAdapter extends  RecyclerView.Adapter<SearchRecyc
         TextView favJokeText = holder.itemView.findViewById(R.id.fav_joke_tv);
         ImageView heartIcon = holder.itemView.findViewById(R.id.heart_icon);
         ImageView shareIcon = holder.itemView.findViewById(R.id.share_icon);
+        ImageView img = holder.itemView.findViewById(R.id.img);
 
         favJokeText.setText(list.get(position).joke);
+        img.setImageBitmap(bitmapList.get(position));
 
         heartIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,8 +77,11 @@ public class SearchRecyclerViewAdapter extends  RecyclerView.Adapter<SearchRecyc
     }
 
     @Override
+//    public int getItemCount() {
+//        return list.size();
+//    }
     public int getItemCount() {
-        return list.size();
+        return bitmapList.size();
     }
 
 

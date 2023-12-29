@@ -30,6 +30,10 @@ public class SearchActivity extends AppCompatActivity implements NetworkingManag
     JsonManager jsonManager;
     Jokes jokes;
     boolean isNetworkSuccess = false;
+    String que;
+    boolean isNetworkImageSuccess = false;
+    ArrayList<String> urlList = new ArrayList<>();
+    ArrayList<Bitmap> bitmapList = new ArrayList<>();
 
 
     @Override
@@ -44,7 +48,9 @@ public class SearchActivity extends AppCompatActivity implements NetworkingManag
 
         networkingManager.listener = this;
 
-        adapter = new SearchRecyclerViewAdapter(this,list);
+//        adapter = new SearchRecyclerViewAdapter(this,list,bitmapList);
+        adapter = new SearchRecyclerViewAdapter(this,bitmapList);
+
         adapter.listener = this;
         searchRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         searchRecyclerView.setAdapter(adapter);
@@ -68,7 +74,10 @@ public class SearchActivity extends AppCompatActivity implements NetworkingManag
             @Override
             public boolean onQueryTextChange(String query) {
                 if (query.length() > 2){
+                    que = query;
                     networkingManager.getSearchJokes(query);
+                    networkingManager.getRandomImageForJoke(que);
+
                 }
                 return false;
             }
@@ -92,8 +101,6 @@ public class SearchActivity extends AppCompatActivity implements NetworkingManag
         }
         return true;
     }
-
-
     @Override
     public void networkingFinishWithJsonString(String json) {
         if(isNetworkSuccess){
@@ -116,22 +123,34 @@ public class SearchActivity extends AppCompatActivity implements NetworkingManag
 
     @Override
     public void networkingFinishWithSuccess(boolean isSuccess) {
-        isNetworkSuccess = isSuccess;
+        isNetworkSuccess = true;
+
     }
 
     @Override
     public void networkingFinishWithBitMapImage(Bitmap d) {
-
     }
 
     @Override
     public void networkingFinishImageWithSuccess(boolean b) {
-
+        isNetworkImageSuccess = b;
     }
 
     @Override
     public void networkingFinishImageWithJsonString(String jsonResponse) {
+        if(isNetworkSuccess){
+            urlList = jsonManager.jsonListOfImageOfJokes(jsonResponse);
 
+            networkingManager.downloadImageList(urlList);
+
+        }
+    }
+
+    @Override
+    public void networkingFinishWithBitMapImageList(ArrayList<Bitmap> bitmapList) {
+//        bitmapList = bitmapList;
+        adapter.bitmapList = bitmapList;
+        adapter.notifyDataSetChanged();
     }
 
     @Override
